@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   <h1>hello</h1>
+   <h1 class="text-center text-info">Play With Phone Api</h1>
 
    <div class="container w-75">
     <div class="input-group mb-3">
@@ -19,11 +19,16 @@
         <button onclick="allPhone()" class="btn btn-outline-secondary" type="button" id="search-btn">Search</button>
       </div>  
    </div>
+   <h2 id="error" class="text-danger text-center"></h2>
 
-   <div id="phone-container" class="phone-container">
+   <div id="phone-container" class="row">
    
    </div>
-    
+
+   <div id="phone-details" class="phone-details">
+
+   </div>
+   
 
 
 <script src="js/phone.js"></script>
