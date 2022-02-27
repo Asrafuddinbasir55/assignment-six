@@ -2,31 +2,33 @@
 const main = document.getElementById('phone-container');
 
 const allPhone = () => {
+  document.getElementById('phone-container').innerHTML = ''
   const searchValue = document.getElementById('search-box').value;
   const error = document.getElementById('error')
   console.log(error);
   console.log(searchValue);
-  if(isNaN(searchValue == '') || searchValue <= 0) {
+  if((searchValue == '' ) || searchValue <= 10) {
     // alert('please enter a value')
-    error.innerText = 'please give a value'
-    searchValue.value = ''
-    main.innerHTML = ''
+    error.innerText = 'please give a positive value'
+    searchValue.textContent = ''
+    main.textContent = ''
   }
   else if (searchValue <= 0) {
+    document.getElementById('phone-container').innerHTML = ''
     error.innerText = 'please give a positive value'
-    searchValue.value = ''
-    error.innerHTML = ''
+    searchValue.textContent = ''
+    error.textContent = ''
   }
   else {
-    main.innerHTML = ''
+    main.textContent = ''
     const searchValue = document.getElementById('search-box').value;
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchValue}`
     console.log(url);
     fetch(url)
     .then(res => res.json())
-    .then(data => phoneDetail(data.data))
-    searchValue.value = ''
-    error.innerHTML = ''
+    .then(data => phoneDetail(data.data.slice(0, 20)))
+    searchValue.textContent = ''
+    error.textContent = ''
     
   }
 }
@@ -37,6 +39,7 @@ const phoneDetail = (phones) => {
     // console.log(phone);
   const div = document.createElement('div')
   div.classList.add('col-lg-4')
+  div.classList.add('col-sm-1')
   div.classList.add('mb-5')
   div.innerHTML = `
   <div class="card" style="width: 18rem;">
@@ -55,25 +58,32 @@ const phoneDetail = (phones) => {
 }
 
     const phoneDetails = (phoneId) => {
-   console.log(phoneId);
+    document.getElementById('phone-container').innerHTML = ''
+    console.log(phoneId);
      const url = `https://openapi.programming-hero.com/api/phone/${phoneId}` 
      fetch(url)
      .then(res => res.json())
       .then(data => phoneDetails(data.data)) 
 
-    const phoneDetails = (info) => {
+      const phoneDetails = (info) => {
+        console.log(info);
       document.getElementById('phone-details').innerHTML = `
-      <div class="card-body">
+      <div class="card-body text-center">
       <img src="${info.image}" class="card-img-top w-25" alt="">
       <h5 class="card-title">${info.name}</h5>
       <p class="card-text">releaseDate: ${info.releaseDate}</p>
       <p class="card-text">main Features: ${info.mainFeatures.chipSet}</p>
-      <p class="card-text">${info.mainFeatures.memory}</p>
-      <p class="card-text">${info.mainFeatures.displaySize}</p>
+      <p class="card-text">Memory: ${info.mainFeatures.memory}</p>
+      <p class="card-text">DisplaySize: ${info.mainFeatures.displaySize}</p>
+      <p class="card-text">Sensors: ${info.mainFeatures.sensors}</p>
+      <p class="card-text">Storage: ${info.mainFeatures.storage}</p>
+      <p class="card-text">Others: ${info.mainFeatures.others}</p>
+
        <p class="card-text">id: ${info.slug}</p>
+       
       </div>
       `
-      console.log(info);
+      // console.log(info);
     }
 
 }
