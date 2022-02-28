@@ -3,11 +3,12 @@ const main = document.getElementById('phone-container');
 
 const allPhone = () => {
   document.getElementById('phone-container').innerHTML = ''
+   document.getElementById('sppiner').style.display = 'block'
   const searchValue = document.getElementById('search-box').value;
   const error = document.getElementById('error')
-  console.log(error);
+  // console.log(error);
   console.log(searchValue);
-  if((searchValue == '' ) || searchValue <= 10) {
+  if((searchValue == '')) {
     // alert('please enter a value')
     error.innerText = 'please give a positive value'
     searchValue.textContent = ''
@@ -26,14 +27,22 @@ const allPhone = () => {
     console.log(url);
     fetch(url)
     .then(res => res.json())
-    .then(data => phoneDetail(data.data.slice(0, 20)))
+   .then(data => phoneDetail(data.data.slice(0, 20))) 
     searchValue.textContent = ''
-    error.textContent = ''
-    
+    error.textContent = '' 
   }
 }
 
+    //  phone detalils
+
 const phoneDetail = (phones) => {
+  if (phones) {
+    document.getElementById('sppiner').style.display = 'none'
+  }
+  else {
+    document.getElementById('sppiner').style.display = 'block'
+     console.log('plaease i value');
+  }
   // console.log(phones);
   for(const phone of phones) {
     // console.log(phone);
@@ -57,14 +66,16 @@ const phoneDetail = (phones) => {
   }  
 }
 
+   //  show phone datails
+   
     const phoneDetails = (phoneId) => {
     document.getElementById('phone-container').innerHTML = ''
-    console.log(phoneId);
+    // console.log(phoneId);
      const url = `https://openapi.programming-hero.com/api/phone/${phoneId}` 
      fetch(url)
      .then(res => res.json())
       .then(data => phoneDetails(data.data)) 
-
+     
       const phoneDetails = (info) => {
         console.log(info);
       document.getElementById('phone-details').innerHTML = `
